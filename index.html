@@ -1,0 +1,52 @@
+<html>
+	<head></head>
+	<body ng-app="app">
+		<div id="wrapper" ng-controller="MainController">
+
+			<div ng-controller="BooksController">
+				<h1>List</h1>
+				<table id='books-table'>
+					<thead>
+						<td>Name</td>
+						<td>Author</td>
+						<td>Price</td>
+						<td>Amount</td>
+						<td>Total</td>
+					</thead>
+					<tr ng-repeat="book in books">
+						<td>{{book.name}}</td>
+						<td>{{book.author}}</td>
+						<td>{{book.price | currency}}</td>
+						<td><input type='number' ng-model='book.amount'></td>
+						<td>{{book.price*book.amount | currency}}</td>
+						<td><button ng-click="addItem(book)">Add Item</button></td>
+					<tr>
+				</table>
+			</div>
+
+			<div ng-controller="CartController">
+				<h1>Cart</h1>
+				<p ng-show="!cart.length">You cart is empty now.</p>
+				<table id='cart-table' ng-show="cart.length">
+					<thead>
+						<td>Name</td>
+						<td>Author</td>
+						<td>Price</td>
+						<td>Amount</td>
+						<td>Total</td>
+					</thead>
+					<tr ng-repeat="book in cart">
+						<td>{{book.name}}</td>
+						<td>{{book.author}}</td>
+						<td>{{book.price | currency}}</td>
+						<td><input type='number' ng-model='book.amount'></td>
+						<td>{{book.price*book.amount | currency}}</td>
+						<td><button ng-click="removeItem($index)">Add Item</button></td>
+					<tr>
+				</table>
+			</div>
+
+		</div>
+		<script src="bundle.js"></script>
+	</body>
+</html>

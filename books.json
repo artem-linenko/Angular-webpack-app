@@ -1,0 +1,26 @@
+[
+	{
+    "id": 1,
+    "name": "A beacon",
+    "price": 12.50,
+    "author": "Audrey Stem"
+	},
+	{
+    "id": 2,
+    "name": "Palace",
+    "price": 20.60,
+    "author": "Gerbert Welsh"
+	},
+	{
+    "id": 3,
+    "name": "A green door",
+    "price": 1.00,
+    "author": "Gerbert Welsh"
+	},
+  {
+    "id": 4,
+    "name": "Nevertheless humiliation",
+    "price": 30.50,
+    "author": "Eleonotra Branderstadt"
+	}
+]
