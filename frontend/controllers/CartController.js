@@ -5,8 +5,8 @@ export default function(app) {
 		$scope.$on('itemAdded', addItem);
 
 		function addItem (e, newBook) {
-			let index = $scope.cart.findIndex((book) => book.id = newBook.id)
-
+			let index = $scope.cart.findIndex((book) => book.id === newBook.id);
+			
 			if (index != -1) {
 				$scope.cart[index].amount += newBook.amount;
 			} else {

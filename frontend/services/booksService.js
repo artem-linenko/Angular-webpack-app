@@ -8,7 +8,6 @@ export default function(app) {
 			getBooks: function() {
 				return $http.get(baseUrl, {params: {apiKey: apiKey}})
 				  .success(function(data) {
-				  	console.log(data)
 				  	return data
 				  })
 				  error(function(err) {

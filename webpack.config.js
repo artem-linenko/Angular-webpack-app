@@ -1,9 +1,15 @@
+const webpack = require('webpack');
+
 module.exports = {
 	context: __dirname,
-	entry: './index.js',
+	entry: {
+		cart: './frontend/cart.js',
+		admin: './frontend/admin.js'
+	},
 	output: {
-		path: __dirname,
-		filename: 'bundle.js'
+		path: __dirname + '/public',
+		filename: '[name].js',
+		library: "[name]"
 	},
 	module: {
         loaders: [
