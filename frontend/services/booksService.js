@@ -14,8 +14,8 @@ export default function(app) {
 				  	return err
 				  })
 			},
-			postBook: function() {
-				return $http.post(baseUrl, {params: {apiKey: apiKey}})
+			postBook: function(newBook) {
+				return $http.post(baseUrl, newBook, {params: {apiKey: apiKey}})
 				  .success(function(data) {
 				  	return data
 				  })

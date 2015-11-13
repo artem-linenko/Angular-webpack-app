@@ -7,9 +7,8 @@ module.exports = {
 		admin: './frontend/admin.js'
 	},
 	output: {
-		path: __dirname + '/public',
-		filename: '[name].js',
-		library: "[name]"
+		path: __dirname + '/public/scripts',
+		filename: '[name].js'
 	},
 	module: {
         loaders: [
