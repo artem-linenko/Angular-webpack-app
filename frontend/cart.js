@@ -1,3 +1,5 @@
+import styles from './styles/cart.scss';
+
 const angular = require('angular');
 const cartApp = angular.module('userApp', []);
 

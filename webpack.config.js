@@ -8,12 +8,17 @@ module.exports = {
 	},
 	output: {
 		path: __dirname + '/public/scripts',
-		filename: '[name].js'
+		filename: '[name].js',
+		publicPath: '/public'
 	},
+	plugins: [
+    ],
 	module: {
         loaders: [
             {test: /\.json$/, loader: 'json-loader'},
-            {test: /\.js$/, loaders: ['babel']}
+            {test: /\.js$/, loaders: ['babel']},
+            {test: /\.css$/, loader: 'style-loader!css-loader'},
+            {test: /\.scss$/, loader: "style!css!sass"}
         ]
     },
     watch: true,

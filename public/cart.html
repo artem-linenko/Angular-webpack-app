@@ -3,7 +3,7 @@
 	<body ng-app="userApp">
 		<div id="wrapper" ng-controller="MainController">
 
-			<div ng-controller="BooksController">
+			<div ng-controller="BooksController" class="block list-container">
 				<h1>List</h1>
 				<table id='books-table'>
 					<thead>
@@ -24,7 +24,7 @@
 				</table>
 			</div>
 
-			<div ng-controller="CartController">
+			<div ng-controller="CartController" class="block cart-container">
 				<h1>Cart</h1>
 				<p ng-show="!cart.length">You cart is empty now.</p>
 				<table id='cart-table' ng-show="cart.length">

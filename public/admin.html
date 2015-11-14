@@ -3,7 +3,7 @@
 	<body ng-app="adminApp">
 		<div id="wrapper">
 
-			<div ng-controller="LoginController">
+			<div ng-controller="LoginController" class="login-container">
 				<form id="loginForm" ng-hide="loginData.successfullyLogined">
 					<input type="text" class="name" placeholder="Enter admin name" ng-model="loginData.name">
 					<input type="text" class="password" placeholder="Enter password" ng-model="loginData.password">
@@ -20,7 +20,7 @@
 					<input type="text" class="author" id="author" ng-model="newBook.author">
 					<label for="price">Price</label>
 					<input type="text" class="price" id="price" ng-model="newBook.price">
-					<button class="submit" ng-click="addBook()" ng-disabled="inputIsNotValid()">Add</button>
+					<input type="button" class="submit" ng-click="addBook()" ng-disabled="inputIsNotValid()" value="Add">
 					<p class="success" ng-show="successfullyAdded">Book is successfully added</p>
 				</form>
 			</div>

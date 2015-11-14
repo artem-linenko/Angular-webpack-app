@@ -1,0 +1,33 @@
+@import './base.scss';
+
+* {
+	font-size: 14px;
+	margin: 0;
+	padding: 0;
+}
+
+#wrapper {
+	background-color: $light-green-background-color;
+	
+	@include set-full-size();
+}
+
+.login-container {
+	@include vertical-align();
+	@include horizontal-align();
+	
+	width: 20em;
+	top: 30%;
+}
+
+#loginForm {
+	background-color: $green-background-color;
+	padding: 30px;
+
+	input, button.submit {
+		display: block;
+		height: 2.5em;
+		width: 10em;
+		margin: 10px auto;
+	}
+}
