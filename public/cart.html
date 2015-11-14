@@ -39,11 +39,17 @@
 						<td>{{book.name}}</td>
 						<td>{{book.author}}</td>
 						<td>{{book.price | currency}}</td>
-						<td><input type='number' ng-model='book.amount'></td>
+						<td><input type='number' ng-model='book.amount'  ng-change="countTotal()"></td>
 						<td>{{book.price*book.amount | currency}}</td>
-						<td><button ng-click="removeItem($index)">Add Item</button></td>
+						<td><span class="remove" ng-click="removeItem($index)">Remove</span></td>
 					<tr>
 				</table>
+				<form ng-show="cart.length">
+					<div class="total">Total: 
+						<span>{{total | currency}}</span>
+					</div>
+					<button class="submit">Order</button>
+				</form>
 			</div>
 
 		</div>

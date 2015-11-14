@@ -45,6 +45,15 @@ table {
 
 	tr {
 		border-top: 1px solid $dark-gray-color;
+
+		.remove {
+			cursor: pointer;
+			text-decoration: underline;
+		}
+
+		.remove:hover {
+			text-decoration: none;
+		}
 	}
 
 	td {
@@ -60,4 +69,24 @@ table {
 		background-color: $bright-green;
 		padding: 3px;
 	}
+}
+
+form {
+	.total, .submit {
+		padding: 5px;
+	}
+
+	.total {
+		float: left;
+	}
+
+	.submit {
+		float: right;
+	}
+}
+
+form:after {
+    content: '';
+    display: table;
+    clear: both;
 }
