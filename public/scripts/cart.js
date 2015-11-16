@@ -48,14 +48,14 @@
 	
 	var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
 	
-	var styles = _interopRequire(__webpack_require__(11));
+	var styles = _interopRequire(__webpack_require__(12));
 	
 	var angular = __webpack_require__(5);
 	var cartApp = angular.module("userApp", []);
 	
 	// Controllers
-	__webpack_require__(13)(cartApp);
 	__webpack_require__(14)(cartApp);
+	__webpack_require__(10)(cartApp);
 	__webpack_require__(15)(cartApp);
 
 /***/ },
@@ -389,6 +389,87 @@
 /* 8 */,
 /* 9 */,
 /* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	angular = __webpack_require__(5);
+	
+	module.exports = function (app) {
+		var booksService = __webpack_require__(11)(app);
+		return app.controller("BooksController", ["$scope", "$rootScope", "booksService", function ($scope, $rootScope, booksService) {
+			$scope.successfullyAdded = false;
+			$scope.addFormVisible = false;
+			$scope.bookToEditVisible = false;
+	
+			$scope.newBook = {
+				name: "",
+				author: "",
+				price: ""
+			};
+	
+			// Fetching list from mingoLab
+			loadBooks();
+	
+			function loadBooks() {
+				booksService.getBooks().then(function (data) {
+					$scope.books = data.data;
+					$scope.books.forEach(function (book) {
+						book.amount = 1;
+					});
+				});
+			}
+	
+			$scope.addItem = function (book) {
+				$rootScope.$broadcast("itemAddedToCart", book);
+			};
+	
+			$scope.addBook = function () {
+				booksService.postBook($scope.newBook).then(function (data) {
+					$scope.successfullyAdded = true;
+					$scope.newBook = {
+						name: "",
+						author: "",
+						price: ""
+					};
+					loadBooks();
+				});
+			};
+	
+			$scope.editBook = function (bookToEdit) {
+				$scope.bookToEditVisible = true;
+				$scope.bookToEdit = angular.copy(bookToEdit);
+			};
+	
+			$scope.updateBook = function (bookToEdit) {
+				booksService.updateBook(bookToEdit).then(function (data) {
+					loadBooks();
+					$scope.bookToEditVisible = false;
+				});
+			};
+	
+			$scope.removeBook = function (bookToRemove) {
+				booksService.removeBook(bookToRemove).then(function (data) {
+					loadBooks();
+				});
+			};
+	
+			$scope.toggleAddFormVisible = function () {
+				$scope.addFormVisible = !$scope.addFormVisible;
+			};
+	
+			$scope.inputIsNotValid = function () {
+				for (var key in $scope.newBook) {
+					if (!$scope.newBook[key]) return true;
+				}
+	
+				return false;
+			};
+		}]);
+	};
+
+/***/ },
+/* 11 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -441,13 +522,13 @@
 	};
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(12);
+	var content = __webpack_require__(13);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(4)(content, {});
@@ -467,7 +548,7 @@
 	}
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(3)();
@@ -481,36 +562,13 @@
 
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports) {
 
 	"use strict";
 	
 	module.exports = function (app) {
 		return app.controller("MainController", function ($scope) {});
-	};
-
-/***/ },
-/* 14 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	module.exports = function (app) {
-		var booksService = __webpack_require__(10)(app);
-		return app.controller("BooksController", ["$scope", "$rootScope", "booksService", function ($scope, $rootScope, booksService) {
-			// Fetching list from mingoLab
-			booksService.getBooks().then(function (data) {
-				$scope.books = data.data;
-				$scope.books.forEach(function (book) {
-					book.amount = 1;
-				});
-			});
-	
-			$scope.addItem = function (book) {
-				$rootScope.$broadcast("itemAdded", book);
-			};
-		}]);
 	};
 
 /***/ },
@@ -522,7 +580,7 @@
 	module.exports = function (app) {
 		return app.controller("CartController", function ($scope) {
 			$scope.cart = [];
-			$scope.$on("itemAdded", addItem);
+			$scope.$on("itemAddedToCart", addItem);
 	
 			$scope.removeItem = function (index) {
 				$scope.cart.splice(index, 1);

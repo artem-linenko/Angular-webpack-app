@@ -1,7 +1,7 @@
 export default function(app) {
 	return app.controller('CartController', function($scope){
 		$scope.cart = [];
-		$scope.$on('itemAdded', addItem);
+		$scope.$on('itemAddedToCart', addItem);
 
 		$scope.removeItem = function(index) {
 			$scope.cart.splice(index, 1);

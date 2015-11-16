@@ -1,0 +1,40 @@
+<div>
+	<div class="block list-container">
+		<table id='books-table'>
+			<thead>
+				<td>Name</td>
+				<td>Author</td>
+				<td>Price</td>
+			</thead>
+			<tr ng-repeat="book in books">
+				<td>{{book.name}}</td>
+				<td>{{book.author}}</td>
+				<td>{{book.price | currency}}</td>
+				<td><button ng-click="editBook(book)">Edit Item</button></td>
+				<td><button ng-click="removeBook(book)">Remove Item</button></td>
+			<tr>
+		</table>
+
+		<form id="editBookForm" ng-show="bookToEditVisible">
+			<input type="text" class="name" ng-model="bookToEdit.name">
+			<input type="text" class="author" ng-model="bookToEdit.author">
+			<input type="text" class="price" ng-model="bookToEdit.price">
+			<input type="button" class="price" value ="Edit" ng-click="updateBook(bookToEdit)">
+		</form>
+	</div>
+
+	<div class="show-list">
+		<button ng-click="toggleAddFormVisible()">Add book</button>
+	</div>
+
+	<div class="add-container" ng-show="addFormVisible">
+		<form id="newBookForm">
+			<input type="text" placeholder="Name" class="name" id="name" ng-model="newBook.name">
+			<input type="text" placeholder="Author" class="author" id="author" ng-model="newBook.author" >
+			<input type="text" placeholder="Price" class="price" id="price" ng-model="newBook.price">
+			<input type="button" class="submit" ng-click="addBook()" ng-disabled="inputIsNotValid()" value="Add">
+			<p class="success" ng-show="successfullyAdded">Book is successfully added</p>
+		</form>
+	</div>
+
+</div>

@@ -1,11 +1,10 @@
 export default function(app) {
 	var loginService = require('../services/loginService')(app);
 
-	return app.controller('LoginController', ['$scope', '$rootScope', '$http', 'loginService', function($scope, $rootScope, $http, loginService){
+	return app.controller('LoginController', function($scope, $rootScope, $http, $location, loginService) {
 		$scope.loginData = {
 			name: '',
 			password: '',
-			successfullyLogined: false,
 			loginFailed: false
 		};
 
@@ -15,14 +14,18 @@ export default function(app) {
 
 		$scope.login = function() {
 			loginService.login(JSON.stringify({name: $scope.loginData.name, password: $scope.loginData.password})).then(function(res) {
+				console.log(res.data)
+				
 				processLoginResponse(res.data)
 			});
 		};
 
 		function processLoginResponse(data, checkingLogin) {
+				console.log(data)
+
 			if (data === 'welcome') {
-				$rootScope.$broadcast('successfullyLogined');
-				$scope.loginData.successfullyLogined = true;
+				console.log(data)
+				$location.path('/table');
 			}	else {
 					if (!checkingLogin) {
 						$scope.loginData.loginFailed = true;
@@ -30,7 +33,5 @@ export default function(app) {
 					}
 			}
 		}
-
-
-	}])
+	})
 }
