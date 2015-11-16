@@ -1,3 +1,5 @@
+angular = require('angular');
+
 export default function(app) {
 	var booksService = require('../services/booksService.js')(app);
 
@@ -5,11 +7,16 @@ export default function(app) {
 		$scope.successfullyLogined = false;
 		$scope.successfullyAdded = false;
 		$scope.listVisible = false;
+		$scope.bookToEditVisible = false;
 
-		booksService.getBooks().then(function(data) {
-			$scope.books = data.data;
-			$scope.newBook.id = $scope.books.length;
-		})
+		loadBooks();
+
+		function loadBooks() {
+			booksService.getBooks().then(function(data) {
+				$scope.books = data.data;
+				$scope.newBook.id = $scope.books.length;
+			})
+		} 
 
 		$scope.newBook = {
 			name: '',
@@ -29,7 +36,27 @@ export default function(app) {
 					author: '',
 					price: ''
 				};
-			})
+				loadBooks();
+			});
+		};
+
+		$scope.editBook = function(bookToEdit) {
+			$scope.bookToEditVisible = true;
+			$scope.bookToEdit = angular.copy(bookToEdit);
+		};
+
+		$scope.updateBook = function(bookToEdit) {
+			booksService.updateBook(bookToEdit).then(function(data) {
+				loadBooks();
+				$scope.bookToEditVisible = false;
+			});
+		};
+
+
+		$scope.removeBook = function(bookToRemove) {
+			booksService.removeBook(bookToRemove).then(function(data) {
+				loadBooks();
+			});
 		};
 		
 		$scope.toggleListVisible = function() {

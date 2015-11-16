@@ -92,7 +92,7 @@
 	
 	
 	// module
-	exports.push([module.id, "* {\n  font-size: 14px;\n  margin: 0;\n  padding: 0; }\n\n#wrapper {\n  background-color: #e5ffe5;\n  width: 100%;\n  height: 100%; }\n\n.login-container {\n  position: relative;\n  top: 50%;\n  transform: translateY(-50%);\n  margin: 0 auto;\n  width: 20em;\n  top: 30%; }\n\n#loginForm {\n  background-color: #99ff99;\n  padding: 30px; }\n  #loginForm input, #loginForm button.submit {\n    display: block;\n    height: 2.5em;\n    width: 10em;\n    margin: 10px auto; }\n\n.add-container #newBookForm {\n  padding: 10px; }\n\n.add-container input {\n  display: block;\n  height: 2.5em;\n  width: 10em;\n  margin: 0px auto 10px auto; }\n\ntable {\n  border-collapse: collapse; }\n  table thead tr {\n    font-size: 18px;\n    font-weight: bolder;\n    border: none; }\n  table tr {\n    border-top: 1px solid #3f3f3f; }\n    table tr .remove {\n      cursor: pointer;\n      text-decoration: underline; }\n    table tr .remove:hover {\n      text-decoration: none; }\n  table td {\n    padding: 5px; }\n  table input[type=number] {\n    width: 70px; }\n  table button {\n    color: white;\n    background-color: #4ca64c;\n    padding: 3px; }\n", ""]);
+	exports.push([module.id, "* {\n  font-size: 14px;\n  margin: 0;\n  padding: 0; }\n\n#wrapper {\n  background-color: #e5ffe5;\n  width: 100%;\n  height: 100%; }\n\n.login-container {\n  position: relative;\n  top: 50%;\n  transform: translateY(-50%);\n  margin: 0 auto;\n  width: 20em;\n  top: 30%; }\n\n#loginForm {\n  background-color: #99ff99;\n  padding: 30px; }\n  #loginForm input, #loginForm button.submit {\n    display: block;\n    height: 2.5em;\n    width: 10em;\n    margin: 10px auto; }\n\n.add-container form {\n  padding: 10px; }\n\n.add-container input {\n  display: block;\n  height: 2.5em;\n  width: 10em;\n  margin: 0px auto 10px auto; }\n\ntable {\n  border-collapse: collapse; }\n  table thead tr {\n    font-size: 18px;\n    font-weight: bolder;\n    border: none; }\n  table tr {\n    border-top: 1px solid #3f3f3f; }\n    table tr .remove {\n      cursor: pointer;\n      text-decoration: underline; }\n    table tr .remove:hover {\n      text-decoration: none; }\n  table td {\n    padding: 5px; }\n  table input[type=number] {\n    width: 70px; }\n  table button {\n    color: white;\n    background-color: #4ca64c;\n    padding: 3px; }\n", ""]);
 	
 	// exports
 
@@ -498,6 +498,8 @@
 
 	"use strict";
 	
+	angular = __webpack_require__(5);
+	
 	module.exports = function (app) {
 		var booksService = __webpack_require__(10)(app);
 	
@@ -505,11 +507,16 @@
 			$scope.successfullyLogined = false;
 			$scope.successfullyAdded = false;
 			$scope.listVisible = false;
+			$scope.bookToEditVisible = false;
 	
-			booksService.getBooks().then(function (data) {
-				$scope.books = data.data;
-				$scope.newBook.id = $scope.books.length;
-			});
+			loadBooks();
+	
+			function loadBooks() {
+				booksService.getBooks().then(function (data) {
+					$scope.books = data.data;
+					$scope.newBook.id = $scope.books.length;
+				});
+			}
 	
 			$scope.newBook = {
 				name: "",
@@ -529,6 +536,25 @@
 						author: "",
 						price: ""
 					};
+					loadBooks();
+				});
+			};
+	
+			$scope.editBook = function (bookToEdit) {
+				$scope.bookToEditVisible = true;
+				$scope.bookToEdit = angular.copy(bookToEdit);
+			};
+	
+			$scope.updateBook = function (bookToEdit) {
+				booksService.updateBook(bookToEdit).then(function (data) {
+					loadBooks();
+					$scope.bookToEditVisible = false;
+				});
+			};
+	
+			$scope.removeBook = function (bookToRemove) {
+				booksService.removeBook(bookToRemove).then(function (data) {
+					loadBooks();
 				});
 			};
 	
@@ -553,13 +579,14 @@
 	"use strict";
 	
 	var apiKey = "mimDIGUBZh5cp3i56VnHTcrdCIVL1rKC",
-	    baseUrl = "https://api.mongolab.com/api/1/databases/angular_cart_app/collections/books";
+	    baseUrl = "https://api.mongolab.com/api/1/databases/angular_cart_app/collections/books",
+	    config = { params: { apiKey: apiKey } };
 	
 	module.exports = function (app) {
 		return app.factory("booksService", ["$http", function ($http) {
 			return {
 				getBooks: function getBooks() {
-					return $http.get(baseUrl, { params: { apiKey: apiKey } }).success(function (data) {
+					return $http.get(baseUrl, config).success(function (data) {
 						return data;
 					});
 					error(function (err) {
@@ -567,7 +594,27 @@
 					});
 				},
 				postBook: function postBook(newBook) {
-					return $http.post(baseUrl, newBook, { params: { apiKey: apiKey } }).success(function (data) {
+					return $http.post(baseUrl, newBook, config).success(function (data) {
+						return data;
+					});
+					error(function (err) {
+						return err;
+					});
+				},
+				updateBook: function updateBook(bookToEdit) {
+					var id = bookToEdit._id.$oid;
+	
+					return $http.put(baseUrl + "/" + id, bookToEdit, config).success(function (data) {
+						return data;
+					});
+					error(function (err) {
+						return err;
+					});
+				},
+				removeBook: function removeBook(bookToRemove) {
+					var id = bookToRemove._id.$oid;
+	
+					return $http["delete"](baseUrl + "/" + id, config).success(function (data) {
 						return data;
 					});
 					error(function (err) {
