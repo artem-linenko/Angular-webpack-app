@@ -92,7 +92,7 @@
 	
 	
 	// module
-	exports.push([module.id, "* {\n  font-size: 14px;\n  margin: 0;\n  padding: 0; }\n\n#wrapper {\n  background-color: #e5ffe5;\n  width: 100%;\n  height: 100%; }\n\n.login-container {\n  position: relative;\n  top: 50%;\n  transform: translateY(-50%);\n  margin: 0 auto;\n  width: 20em;\n  top: 30%; }\n\n#loginForm {\n  background-color: #99ff99;\n  padding: 30px; }\n  #loginForm input, #loginForm button.submit {\n    display: block;\n    height: 2.5em;\n    width: 10em;\n    margin: 10px auto; }\n", ""]);
+	exports.push([module.id, "* {\n  font-size: 14px;\n  margin: 0;\n  padding: 0; }\n\n#wrapper {\n  background-color: #e5ffe5;\n  width: 100%;\n  height: 100%; }\n\n.login-container {\n  position: relative;\n  top: 50%;\n  transform: translateY(-50%);\n  margin: 0 auto;\n  width: 20em;\n  top: 30%; }\n\n#loginForm {\n  background-color: #99ff99;\n  padding: 30px; }\n  #loginForm input, #loginForm button.submit {\n    display: block;\n    height: 2.5em;\n    width: 10em;\n    margin: 10px auto; }\n\n.add-container #newBookForm {\n  padding: 10px; }\n\n.add-container input {\n  display: block;\n  height: 2.5em;\n  width: 10em;\n  margin: 0px auto 10px auto; }\n\ntable {\n  border-collapse: collapse; }\n  table thead tr {\n    font-size: 18px;\n    font-weight: bolder;\n    border: none; }\n  table tr {\n    border-top: 1px solid #3f3f3f; }\n    table tr .remove {\n      cursor: pointer;\n      text-decoration: underline; }\n    table tr .remove:hover {\n      text-decoration: none; }\n  table td {\n    padding: 5px; }\n  table input[type=number] {\n    width: 70px; }\n  table button {\n    color: white;\n    background-color: #4ca64c;\n    padding: 3px; }\n", ""]);
 	
 	// exports
 
@@ -500,9 +500,16 @@
 	
 	module.exports = function (app) {
 		var booksService = __webpack_require__(10)(app);
+	
 		return app.controller("NewBookController", ["$scope", "booksService", function ($scope, booksService) {
 			$scope.successfullyLogined = false;
 			$scope.successfullyAdded = false;
+			$scope.listVisible = false;
+	
+			booksService.getBooks().then(function (data) {
+				$scope.books = data.data;
+				$scope.newBook.id = $scope.books.length;
+			});
 	
 			$scope.newBook = {
 				name: "",
@@ -523,6 +530,10 @@
 						price: ""
 					};
 				});
+			};
+	
+			$scope.toggleListVisible = function () {
+				$scope.listVisible = !$scope.listVisible;
 			};
 	
 			$scope.inputIsNotValid = function () {

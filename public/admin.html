@@ -3,7 +3,7 @@
 	<body ng-app="adminApp">
 		<div id="wrapper">
 
-			<div ng-controller="LoginController" class="login-container">
+			<div class="login-container" ng-controller="LoginController">
 				<form id="loginForm" ng-hide="loginData.successfullyLogined">
 					<input type="text" class="name" placeholder="Enter admin name" ng-model="loginData.name">
 					<input type="text" class="password" placeholder="Enter password" ng-model="loginData.password">
@@ -11,18 +11,38 @@
 					<button class="submit" ng-click="login()">Login</button>
 				</form>
 			</div>
+			<div ng-controller="NewBookController">
+				<div class="add-container" ng-show="successfullyLogined">
+					<form id="newBookForm">
+						<input type="text" placeholder="Name" class="name" id="name" ng-model="newBook.name">
+						<input type="text" placeholder="Author" class="author" id="author" ng-model="newBook.author" >
+						<input type="text" placeholder="Price" class="price" id="price" ng-model="newBook.price">
+						<input type="button" class="submit" ng-click="addBook()" ng-disabled="inputIsNotValid()" value="Add">
+						<p class="success" ng-show="successfullyAdded">Book is successfully added</p>
+					</form>
+				</div>
+				<div class="show-list">
+					<button ng-click="toggleListVisible()">Show list</button>
+				</div>
 
-			<div ng-controller="NewBookController" ng-show="successfullyLogined">
-				<form id="newBookForm">
-					<label for="name">Name</label>
-					<input type="text" class="name" id="name" ng-model="newBook.name">
-					<label for="author">Author</label>
-					<input type="text" class="author" id="author" ng-model="newBook.author">
-					<label for="price">Price</label>
-					<input type="text" class="price" id="price" ng-model="newBook.price">
-					<input type="button" class="submit" ng-click="addBook()" ng-disabled="inputIsNotValid()" value="Add">
-					<p class="success" ng-show="successfullyAdded">Book is successfully added</p>
-				</form>
+				<div class="block list-container" ng-show="listVisible">
+					<table id='books-table'>
+						<thead>
+							<td>Name</td>
+							<td>Author</td>
+							<td>Price</td>
+							<td>Amount</td>
+							<td>Total</td>
+						</thead>
+						<tr ng-repeat="book in books">
+							<td>{{book.name}}</td>
+							<td>{{book.author}}</td>
+							<td>{{book.price | currency}}</td>
+							<td>{{book.price*book.amount | currency}}</td>
+							<td><button ng-click="addItem(book)">Remove Item</button></td>
+						<tr>
+					</table>
+				</div>
 			</div>
 
 		</div>

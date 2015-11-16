@@ -1,8 +1,15 @@
 export default function(app) {
 	var booksService = require('../services/booksService.js')(app);
+
 	return app.controller('NewBookController', ['$scope', 'booksService', function($scope, booksService){
 		$scope.successfullyLogined = false;
 		$scope.successfullyAdded = false;
+		$scope.listVisible = false;
+
+		booksService.getBooks().then(function(data) {
+			$scope.books = data.data;
+			$scope.newBook.id = $scope.books.length;
+		})
 
 		$scope.newBook = {
 			name: '',
@@ -23,6 +30,10 @@ export default function(app) {
 					price: ''
 				};
 			})
+		};
+		
+		$scope.toggleListVisible = function() {
+			$scope.listVisible = !$scope.listVisible;
 		};
 
 		$scope.inputIsNotValid = function() {
