@@ -458,12 +458,6 @@
 				});
 			};
 	
-			// $scope.getBookById = function(id) {
-			// 	booksService.getBookById(id).then(function(data) {
-			// 		$scope.bookToEdit = data.data;
-			// 	});
-			// }
-	
 			$scope.toggleAddFormVisible = function () {
 				$scope.addFormVisible = !$scope.addFormVisible;
 			};
