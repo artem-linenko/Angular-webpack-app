@@ -13,11 +13,9 @@
 }
 
 .login-container {
-	@include vertical-align();
 	@include horizontal-align();
 	
 	width: 20em;
-	top: 30%;
 }
 
 #loginForm {

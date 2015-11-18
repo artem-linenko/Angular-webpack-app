@@ -2,7 +2,7 @@ angular = require('angular');
 
 export default function(app) {
 	var booksService = require('../services/booksService.js')(app);
-	return app.controller('BooksController', ['$scope', '$rootScope', 'booksService', function($scope, $rootScope, booksService){
+	return app.controller('BooksController', function($scope, $rootScope, booksService, $routeParams, $location){
 		$scope.successfullyAdded = false;
 		$scope.addFormVisible = false;
 		$scope.bookToEditVisible = false;
@@ -14,8 +14,14 @@ export default function(app) {
 			price: ''
 		};
 
-		// Fetching list from mingoLab
-		loadBooks(); 
+		// Fetching 1 book or a whole list depending on url params
+		if ($routeParams.id != undefined) {
+			booksService.getBookById($routeParams.id).then(function(data) {
+				$scope.bookToEdit = data.data;
+			});
+		} else {
+			loadBooks();
+		}
 
 		function loadBooks() {
 			booksService.getBooks().then(function(data) {
@@ -42,15 +48,11 @@ export default function(app) {
 			});
 		};
 
-		$scope.editBook = function(bookToEdit) {
-			$scope.bookToEditVisible = true;
-			$scope.bookToEdit = angular.copy(bookToEdit);
-		};
-
 		$scope.updateBook = function(bookToEdit) {
 			booksService.updateBook(bookToEdit).then(function(data) {
 				loadBooks();
 				$scope.bookToEditVisible = false;
+				$location.path('/table')
 			});
 		};
 
@@ -60,6 +62,12 @@ export default function(app) {
 				loadBooks();
 			});
 		};
+
+		// $scope.getBookById = function(id) {
+		// 	booksService.getBookById(id).then(function(data) {
+		// 		$scope.bookToEdit = data.data;
+		// 	});
+		// }
 
 		$scope.toggleAddFormVisible = function() {
 			$scope.addFormVisible = !$scope.addFormVisible;
@@ -72,5 +80,5 @@ export default function(app) {
 
 			return false;
 		};
-	}])
+	})
 }

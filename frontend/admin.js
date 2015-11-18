@@ -1,7 +1,7 @@
 import styles from './styles/admin.scss';
+import angular from 'angular';
 import angularRoute from 'angular-route';
 
-const angular = require('angular');
 const adminApp = angular.module('adminApp', ['ngRoute']);
 
 // Controllers
@@ -17,6 +17,10 @@ adminApp.config(function($routeProvider) {
 		}) 
 		.when('/table', {
 			templateUrl: "./partials/admin-table.html",
+			controller: "BooksController"
+		})
+		.when('/table/edit/:id', {
+			templateUrl: "./partials/edit-book.html",
 			controller: "BooksController"
 		})
 		.otherwise({

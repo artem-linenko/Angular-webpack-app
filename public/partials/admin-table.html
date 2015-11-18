@@ -10,17 +10,10 @@
 				<td>{{book.name}}</td>
 				<td>{{book.author}}</td>
 				<td>{{book.price | currency}}</td>
-				<td><button ng-click="editBook(book)">Edit Item</button></td>
+				<td><a href="#/table/edit/{{book._id.$oid}}">Edit</a></td>
 				<td><button ng-click="removeBook(book)">Remove Item</button></td>
 			<tr>
 		</table>
-
-		<form id="editBookForm" ng-show="bookToEditVisible">
-			<input type="text" class="name" ng-model="bookToEdit.name">
-			<input type="text" class="author" ng-model="bookToEdit.author">
-			<input type="text" class="price" ng-model="bookToEdit.price">
-			<input type="button" class="price" value ="Edit" ng-click="updateBook(bookToEdit)">
-		</form>
 	</div>
 
 	<div class="show-list">

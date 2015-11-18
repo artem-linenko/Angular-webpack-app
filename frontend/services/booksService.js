@@ -15,6 +15,15 @@ export default function(app) {
 				  	return err;
 				  })
 			},
+			getBookById: function(id) {
+				return $http.get(baseUrl + '/' + id, config)
+				  .success(function(data) {
+				  	return data;
+				  })
+				  error(function(err) {
+				  	return err;
+				  })
+			},
 			postBook: function(newBook) {
 				return $http.post(baseUrl, newBook, config)
 				  .success(function(data) {
