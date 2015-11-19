@@ -9,9 +9,21 @@
 #wrapper {
 	background-color: $light-green-background-color;
 	
-	@include set-full-size();
+	width: 100%
 }
 
+nav {
+	ul {
+
+		li {
+			display: inline-block;
+			padding: 5px;
+			background-color: $green-background-color;
+			border: 1px solid gray;
+			font-weight: bolder
+		}
+	}
+}
 .login-container {
 	@include horizontal-align();
 	
@@ -31,14 +43,14 @@
 }
 
 .add-container {
-	form {
-		padding: 10px;
+	form #newBookForm{
+		padding-top: 10px;
 	}
 	input {
 		display: block;
 		height: 2.5em;
 		width: 10em;
-		margin: 0px auto 10px auto;
+		margin-top: 10px;
 	}
 }
 
@@ -76,5 +88,33 @@ table {
 		color: white;
 		background-color: $bright-green;
 		padding: 3px;
+	}
+}
+
+.order-container {
+	// max-width: 700px;
+	// min-width: 500px;
+	width: 500px;
+	padding-top: 30px;
+	border-bottom: 2px solid black;
+
+	.order-info {
+		.total, .button {
+			padding: 5px;
+		}
+
+		.total {
+			float: left;
+		}
+
+		button {
+			float: right;
+		}
+		
+		&:after {
+		    content: '';
+		    display: table;
+		    clear: both;
+		}
 	}
 }

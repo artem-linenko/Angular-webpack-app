@@ -8,6 +8,10 @@ const adminApp = angular.module('adminApp', ['ngRoute']);
 require('./controllers/AdminController')(adminApp);
 require('./controllers/LoginController')(adminApp);
 require('./controllers/BooksController')(adminApp);
+require('./controllers/OrdersController')(adminApp);
+
+// Directives
+require('./directives/adminNavigation')(adminApp);
 
 adminApp.config(function($routeProvider) {
 	$routeProvider.
@@ -22,6 +26,10 @@ adminApp.config(function($routeProvider) {
 		.when('/table/edit/:id', {
 			templateUrl: "./partials/edit-book.html",
 			controller: "BooksController"
+		})
+		.when('/table/orders', {
+			templateUrl: "./partials/orders.html",
+			controller: "OrdersController"
 		})
 		.otherwise({
 			redirectTo: '/login'

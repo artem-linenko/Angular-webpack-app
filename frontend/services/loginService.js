@@ -7,7 +7,6 @@ export default function(app) {
 			checkIfLogined: function() {
 				return $http.get(baseUrl)
 				  .success(function(data) {
-				  	console.log(data);
 				  	return data
 				  })
 				  error(function(err) {

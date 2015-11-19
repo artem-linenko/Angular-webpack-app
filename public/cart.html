@@ -1,57 +1,10 @@
 <html>
 	<head></head>
 	<body ng-app="userApp">
+
 		<div id="wrapper" ng-controller="MainController">
-
-			<div ng-controller="BooksController" class="block list-container">
-				<h1>List</h1>
-				<table id='books-table'>
-					<thead>
-						<td>Name</td>
-						<td>Author</td>
-						<td>Price</td>
-						<td>Amount</td>
-						<td>Total</td>
-					</thead>
-					<tr ng-repeat="book in books">
-						<td>{{book.name}}</td>
-						<td>{{book.author}}</td>
-						<td>{{book.price | currency}}</td>
-						<td><input type='number' ng-model='book.amount'></td>
-						<td>{{book.price*book.amount | currency}}</td>
-						<td><button ng-click="addItem(book)">Add Item</button></td>
-					<tr>
-				</table>
-			</div>
-
-			<div ng-controller="CartController" class="block cart-container">
-				<h1>Cart</h1>
-				<p ng-show="!cart.length">You cart is empty now.</p>
-				<table id='cart-table' ng-show="cart.length">
-					<thead>
-						<td>Name</td>
-						<td>Author</td>
-						<td>Price</td>
-						<td>Amount</td>
-						<td>Total</td>
-					</thead>
-					<tr ng-repeat="book in cart">
-						<td>{{book.name}}</td>
-						<td>{{book.author}}</td>
-						<td>{{book.price | currency}}</td>
-						<td><input type='number' ng-model='book.amount'  ng-change="countTotal()"></td>
-						<td>{{book.price*book.amount | currency}}</td>
-						<td><span class="remove" ng-click="removeItem($index)">Remove</span></td>
-					<tr>
-				</table>
-				<form ng-show="cart.length">
-					<div class="total">Total: 
-						<span>{{total | currency}}</span>
-					</div>
-					<button class="submit">Order</button>
-				</form>
-			</div>
-
+			<cart-table></cart-table>
+			<cart-element></cart-element>
 		</div>
 		<script src="scripts/cart.js"></script>
 	</body>

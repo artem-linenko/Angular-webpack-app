@@ -1,0 +1,20 @@
+<div class="block list-container" ng-controller="BooksController">
+	<h1>List</h1>
+	<table id='books-table'>
+		<thead>
+			<td>Name</td>
+			<td>Author</td>
+			<td>Price</td>
+			<td>Amount</td>
+			<td>Total</td>
+		</thead>
+		<tr ng-repeat="book in books">
+			<td>{{book.name}}</td>
+			<td>{{book.author}}</td>
+			<td>{{book.price | currency}}</td>
+			<td><input type='number' min="0" ng-model='book.amount'></td>
+			<td>{{book.price*book.amount | currency}}</td>
+			<td><button ng-click="addItem(book)">Add Item</button></td>
+		<tr>
+	</table>
+</div>

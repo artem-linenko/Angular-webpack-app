@@ -1,5 +1,7 @@
 export default function(app) {
-	return app.controller('CartController', function($scope){
+	var booksService = require('../services/booksService.js')(app);
+
+	return app.controller('CartController', function($scope, booksService){
 		$scope.cart = [];
 		$scope.$on('itemAddedToCart', addItem);
 
@@ -7,7 +9,7 @@ export default function(app) {
 			$scope.cart.splice(index, 1);
 
 			$scope.countTotal()
-		}
+		};
 
 		$scope.countTotal = function() {
 			$scope.total = 0;
@@ -15,7 +17,19 @@ export default function(app) {
 			$scope.cart.forEach((book) => {
 				$scope.total += book.price * book.amount
 			})
-		}
+		};
+
+		$scope.makeOrder = function() {
+			var order = {
+				time: new Date(),
+				cart: $scope.cart
+			};
+			
+			booksService.makeOrder(order).then(function(data) {
+				$scope.successfullyOrdered = true;
+				$scope.cart = [];				
+			});
+		};
 
 		function addItem (e, newBook) {
 			let index = $scope.cart.findIndex((book) => book.id === newBook.id);
@@ -26,6 +40,7 @@ export default function(app) {
 				$scope.cart.push(cloneObj(newBook));
 			}
 
+			$scope.successfullyOrdered = false;
 			$scope.countTotal();
 		}
 

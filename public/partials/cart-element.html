@@ -1,0 +1,31 @@
+<div ng-controller="CartController" class="block cart-container">
+	<h1>Cart</h1>
+	<p  ng-show="successfullyOrdered">Your order is successfully made. Go ahead and choose some more!</p>
+	<p  ng-show="!cart.length">You cart is empty now.</p>
+
+	<div>
+		<table id='cart-table' ng-show="cart.length">
+			<thead>
+				<td>Name</td>
+				<td>Author</td>
+				<td>Price</td>
+				<td>Amount</td>
+				<td>Total</td>
+			</thead>
+			<tr ng-repeat="book in cart">
+				<td>{{book.name}}</td>
+				<td>{{book.author}}</td>
+				<td>{{book.price | currency}}</td>
+				<td><input type='number' min="0" ng-model='book.amount'  ng-change="countTotal()"></td>
+				<td>{{book.price*book.amount | currency}}</td>
+				<td><span class="remove" ng-click="removeItem($index)">Remove</span></td>
+			<tr>
+		</table>
+		<div class="order" ng-show="cart.length">
+			<div class="total">Total: 
+				<span>{{total | currency}}</span>
+			</div>
+			<button ng-click="makeOrder()">Order</button>
+		</div>
+	</div>
+</div>

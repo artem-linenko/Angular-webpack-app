@@ -21,8 +21,6 @@ export default function(app) {
 		};
 
 		function processLoginResponse(data, checkingLogin) {
-				console.log(data)
-
 			if (data === 'welcome') {
 				console.log(data)
 				$location.path('/table');

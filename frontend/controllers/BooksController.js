@@ -1,7 +1,9 @@
 angular = require('angular');
+import constants from "./../constants";
 
 export default function(app) {
 	var booksService = require('../services/booksService.js')(app);
+
 	return app.controller('BooksController', function($scope, $rootScope, booksService, $routeParams, $location){
 		$scope.successfullyAdded = false;
 		$scope.addFormVisible = false;
@@ -52,10 +54,9 @@ export default function(app) {
 			booksService.updateBook(bookToEdit).then(function(data) {
 				loadBooks();
 				$scope.bookToEditVisible = false;
-				$location.path('/table')
+				$location.path(constants.paths.table)
 			});
 		};
-
 
 		$scope.removeBook = function(bookToRemove) {
 			booksService.removeBook(bookToRemove).then(function(data) {

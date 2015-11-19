@@ -1,0 +1,28 @@
+<div id="ordersTable" ng-controller="OrdersController" class="block cart-container">
+	<div ng-repeat="order in orders">
+		<div class="order-container">
+			<table>
+				<thead>
+					<td>Name</td>
+					<td>Author</td>
+					<td>Price</td>
+					<td>Amount</td>
+					<td>Total</td>
+				</thead>
+				<tr ng-repeat="book in order.cart">
+					<td>{{book.name}}</td>
+					<td>{{book.author}}</td>
+					<td>{{book.price | currency}}</td>
+					<td>{{book.amount}}</td>
+					<td>{{book.price*book.amount | currency}}</td>
+				<tr>
+			</table>
+			<div class="order-info">
+				<div class="total">Total: 
+					<span>{{total | currency}}</span>
+				</div>
+				<button ng-click="removeOrder(order)">Remove</button>
+			</div>
+		</div>
+	</div>
+</div>
