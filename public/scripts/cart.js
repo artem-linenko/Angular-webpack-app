@@ -48,20 +48,19 @@
 	
 	var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
 	
-	var styles = _interopRequire(__webpack_require__(14));
+	var styles = _interopRequire(__webpack_require__(18));
 	
 	var angular = __webpack_require__(5);
 	var angularRoute = __webpack_require__(7);
 	var cartApp = angular.module("userApp", ["ngRoute"]);
 	
 	// Controllers
-	__webpack_require__(16)(cartApp);
 	__webpack_require__(12)(cartApp);
-	__webpack_require__(17)(cartApp);
+	__webpack_require__(21)(cartApp);
 	
 	// Directives
-	__webpack_require__(18)(cartApp);
-	__webpack_require__(19)(cartApp);
+	__webpack_require__(22)(cartApp);
+	__webpack_require__(23)(cartApp);
 
 /***/ },
 /* 1 */,
@@ -1382,10 +1381,10 @@
 	
 	angular = __webpack_require__(5);
 	
-	var constants = _interopRequire(__webpack_require__(23));
+	var constants = _interopRequire(__webpack_require__(13));
 	
 	module.exports = function (app) {
-		var booksService = __webpack_require__(13)(app);
+		var booksService = __webpack_require__(14)(app);
 	
 		return app.controller("BooksController", function ($scope, $rootScope, booksService, $routeParams, $location) {
 			$scope.successfullyAdded = false;
@@ -1466,6 +1465,19 @@
 
 	"use strict";
 	
+	module.exports = {
+		paths: {
+			orders: "/orders",
+			table: "/table"
+		}
+	};
+
+/***/ },
+/* 14 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
 	var apiKey = "mimDIGUBZh5cp3i56VnHTcrdCIVL1rKC",
 	    baseUrl = "https://api.mongolab.com/api/1/databases/angular_cart_app/collections/",
 	    config = { params: { apiKey: apiKey } },
@@ -1536,13 +1548,16 @@
 	};
 
 /***/ },
-/* 14 */
+/* 15 */,
+/* 16 */,
+/* 17 */,
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(15);
+	var content = __webpack_require__(19);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(4)(content, {});
@@ -1562,7 +1577,7 @@
 	}
 
 /***/ },
-/* 15 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(3)();
@@ -1576,23 +1591,14 @@
 
 
 /***/ },
-/* 16 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	module.exports = function (app) {
-		return app.controller("MainController", function ($scope) {});
-	};
-
-/***/ },
-/* 17 */
+/* 20 */,
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
 	module.exports = function (app) {
-		var booksService = __webpack_require__(13)(app);
+		var booksService = __webpack_require__(14)(app);
 	
 		return app.controller("CartController", function ($scope, booksService) {
 			$scope.cart = [];
@@ -1652,7 +1658,7 @@
 	};
 
 /***/ },
-/* 18 */
+/* 22 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1671,7 +1677,7 @@
 	};
 
 /***/ },
-/* 19 */
+/* 23 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1701,22 +1707,6 @@
 	// $scope.pointChosenBook = function(name) {
 	// 	$scope.pointBook({'name': name});
 	// }
-
-/***/ },
-/* 20 */,
-/* 21 */,
-/* 22 */,
-/* 23 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	module.exports = {
-		paths: {
-			orders: "/table/orders",
-			table: "/table"
-		}
-	};
 
 /***/ }
 /******/ ]);

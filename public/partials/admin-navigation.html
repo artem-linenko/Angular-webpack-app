@@ -1,6 +1,7 @@
+<!-- template of adminNavigion directive -->
 <nav>
 	<ul>
-		<li ng-click="goToOrders()">Orders</li>
-		<li ng-click="goToBooksTable()">Table</li>
+		<li name='table' ng-class="{active: activeTab == 'table'} ">Table</li>
+		<li name='orders' ng-class="{active: activeTab == 'orders'}">Orders</li>
 	</ul>
 </nav>

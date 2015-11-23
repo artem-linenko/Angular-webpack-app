@@ -5,7 +5,6 @@ import angularRoute from 'angular-route';
 const adminApp = angular.module('adminApp', ['ngRoute']);
 
 // Controllers
-require('./controllers/AdminController')(adminApp);
 require('./controllers/LoginController')(adminApp);
 require('./controllers/BooksController')(adminApp);
 require('./controllers/OrdersController')(adminApp);
@@ -27,7 +26,7 @@ adminApp.config(function($routeProvider) {
 			templateUrl: "./partials/edit-book.html",
 			controller: "BooksController"
 		})
-		.when('/table/orders', {
+		.when('/orders', {
 			templateUrl: "./partials/orders.html",
 			controller: "OrdersController"
 		})

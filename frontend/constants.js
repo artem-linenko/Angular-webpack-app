@@ -1,6 +1,6 @@
 export default {
 	paths: {
-		orders: "/table/orders",
+		orders: "/orders",
 		table: "/table"
 	}
 }

@@ -5,7 +5,6 @@ const angularRoute = require('angular-route');
 const cartApp = angular.module('userApp', ['ngRoute']);
 
 // Controllers
-require('./controllers/MainController')(cartApp);
 require('./controllers/BooksController')(cartApp);
 require('./controllers/CartController')(cartApp);
 

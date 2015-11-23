@@ -57,13 +57,12 @@
 	var adminApp = angular.module("adminApp", ["ngRoute"]);
 	
 	// Controllers
-	__webpack_require__(9)(adminApp);
 	__webpack_require__(10)(adminApp);
 	__webpack_require__(12)(adminApp);
-	__webpack_require__(20)(adminApp);
+	__webpack_require__(15)(adminApp);
 	
 	// Directives
-	__webpack_require__(24)(adminApp);
+	__webpack_require__(17)(adminApp);
 	
 	adminApp.config(function ($routeProvider) {
 		$routeProvider.when("/login", {
@@ -75,7 +74,7 @@
 		}).when("/table/edit/:id", {
 			templateUrl: "./partials/edit-book.html",
 			controller: "BooksController"
-		}).when("/table/orders", {
+		}).when("/orders", {
 			templateUrl: "./partials/orders.html",
 			controller: "OrdersController"
 		}).otherwise({
@@ -118,7 +117,7 @@
 	
 	
 	// module
-	exports.push([module.id, "* {\n  font-size: 14px;\n  margin: 0;\n  padding: 0; }\n\n#wrapper {\n  background-color: #e5ffe5;\n  width: 100%; }\n\nnav ul li {\n  display: inline-block;\n  padding: 5px;\n  background-color: #99ff99;\n  border: 1px solid gray;\n  font-weight: bolder; }\n\n.login-container {\n  margin: 0 auto;\n  width: 20em; }\n\n#loginForm {\n  background-color: #99ff99;\n  padding: 30px; }\n  #loginForm input, #loginForm button.submit {\n    display: block;\n    height: 2.5em;\n    width: 10em;\n    margin: 10px auto; }\n\n.add-container form #newBookForm {\n  padding-top: 10px; }\n\n.add-container input {\n  display: block;\n  height: 2.5em;\n  width: 10em;\n  margin-top: 10px; }\n\ntable {\n  border-collapse: collapse; }\n  table thead tr {\n    font-size: 18px;\n    font-weight: bolder;\n    border: none; }\n  table tr {\n    border-top: 1px solid #3f3f3f; }\n    table tr .remove {\n      cursor: pointer;\n      text-decoration: underline; }\n    table tr .remove:hover {\n      text-decoration: none; }\n  table td {\n    padding: 5px; }\n  table input[type=number] {\n    width: 70px; }\n  table button {\n    color: white;\n    background-color: #4ca64c;\n    padding: 3px; }\n\n.order-container {\n  width: 500px;\n  padding-top: 30px;\n  border-bottom: 2px solid black; }\n  .order-container .order-info .total, .order-container .order-info .button {\n    padding: 5px; }\n  .order-container .order-info .total {\n    float: left; }\n  .order-container .order-info button {\n    float: right; }\n  .order-container .order-info:after {\n    content: '';\n    display: table;\n    clear: both; }\n", ""]);
+	exports.push([module.id, "* {\n  font-size: 14px;\n  margin: 0;\n  padding: 0; }\n\n#wrapper {\n  width: 100%; }\n\nnav ul li {\n  display: inline-block;\n  padding: 5px;\n  background-color: #e5ffe5;\n  border: 1px solid gray; }\n  nav ul li.active {\n    font-weight: bolder;\n    background-color: #99ff99; }\n\n.login-container {\n  margin: 0 auto;\n  width: 20em; }\n\n#loginForm {\n  background-color: #99ff99;\n  padding: 30px; }\n  #loginForm input, #loginForm button.submit {\n    display: block;\n    height: 2.5em;\n    width: 10em;\n    margin: 10px auto; }\n\n.add-container form #newBookForm {\n  padding-top: 10px; }\n\n.add-container input {\n  display: block;\n  height: 2.5em;\n  width: 10em;\n  margin-top: 10px; }\n\ntable {\n  border-collapse: collapse; }\n  table thead tr {\n    font-size: 18px;\n    font-weight: bolder;\n    border: none; }\n  table tr {\n    border-top: 1px solid #3f3f3f; }\n    table tr .remove {\n      cursor: pointer;\n      text-decoration: underline; }\n    table tr .remove:hover {\n      text-decoration: none; }\n  table td {\n    padding: 5px; }\n  table input[type=number] {\n    width: 70px; }\n  table button {\n    color: white;\n    background-color: #4ca64c;\n    padding: 3px; }\n\n.order-container {\n  width: 500px;\n  padding-top: 30px;\n  border-bottom: 2px solid black; }\n  .order-container .order-info .total, .order-container .order-info .button {\n    padding: 5px; }\n  .order-container .order-info .total {\n    float: left; }\n  .order-container .order-info button {\n    float: right; }\n  .order-container .order-info:after {\n    content: '';\n    display: table;\n    clear: both; }\n", ""]);
 	
 	// exports
 
@@ -1428,16 +1427,7 @@
 	})(window, window.angular);
 
 /***/ },
-/* 9 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	module.exports = function (app) {
-		return app.controller("AdminController", function ($scope) {});
-	};
-
-/***/ },
+/* 9 */,
 /* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -1459,15 +1449,12 @@
 	
 			$scope.login = function () {
 				loginService.login(JSON.stringify({ name: $scope.loginData.name, password: $scope.loginData.password })).then(function (res) {
-					console.log(res.data);
-	
 					processLoginResponse(res.data);
 				});
 			};
 	
 			function processLoginResponse(data, checkingLogin) {
 				if (data === "welcome") {
-					console.log(data);
 					$location.path("/table");
 				} else {
 					if (!checkingLogin) {
@@ -1519,10 +1506,10 @@
 	
 	angular = __webpack_require__(5);
 	
-	var constants = _interopRequire(__webpack_require__(23));
+	var constants = _interopRequire(__webpack_require__(13));
 	
 	module.exports = function (app) {
-		var booksService = __webpack_require__(13)(app);
+		var booksService = __webpack_require__(14)(app);
 	
 		return app.controller("BooksController", function ($scope, $rootScope, booksService, $routeParams, $location) {
 			$scope.successfullyAdded = false;
@@ -1603,6 +1590,19 @@
 
 	"use strict";
 	
+	module.exports = {
+		paths: {
+			orders: "/orders",
+			table: "/table"
+		}
+	};
+
+/***/ },
+/* 14 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
 	var apiKey = "mimDIGUBZh5cp3i56VnHTcrdCIVL1rKC",
 	    baseUrl = "https://api.mongolab.com/api/1/databases/angular_cart_app/collections/",
 	    config = { params: { apiKey: apiKey } },
@@ -1673,19 +1673,13 @@
 	};
 
 /***/ },
-/* 14 */,
-/* 15 */,
-/* 16 */,
-/* 17 */,
-/* 18 */,
-/* 19 */,
-/* 20 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
 	module.exports = function (app) {
-		var ordersService = __webpack_require__(21)(app);
+		var ordersService = __webpack_require__(16)(app);
 	
 		return app.controller("OrdersController", function ($scope, ordersService) {
 	
@@ -1706,7 +1700,7 @@
 	};
 
 /***/ },
-/* 21 */
+/* 16 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1740,42 +1734,36 @@
 	};
 
 /***/ },
-/* 22 */,
-/* 23 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	module.exports = {
-		paths: {
-			orders: "/table/orders",
-			table: "/table"
-		}
-	};
-
-/***/ },
-/* 24 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
 	var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
 	
-	var constants = _interopRequire(__webpack_require__(23));
+	var constants = _interopRequire(__webpack_require__(13));
 	
 	module.exports = function (app) {
-		return app.directive("adminNavigation", function () {
+		return app.directive("adminNavigation", function ($location) {
 			return {
 				restrict: "E",
 				templateUrl: "./partials/admin-navigation.html",
-				controller: function controller($scope, $location) {
-					$scope.goToOrders = function () {
-						$location.path(constants.paths.orders);
+				controller: function controller($scope, $location, $rootScope) {
+					$scope.changePath = function (newPath) {
+						$location.path(newPath);
+						$rootScope.$apply();
 					};
+				},
+				link: function link($scope, element, attrs) {
+					$scope.activeTab = "table";
 	
-					$scope.goToBooksTable = function () {
-						$location.path(constants.paths.table);
-					};
+					element.on("click", function ($event) {
+						if ($event.target.tagName != "LI") return;
+	
+						var tabName = $event.target.getAttribute("name");
+						$scope.activeTab = tabName;
+						$scope.changePath("/" + tabName);
+					});
 				}
 			};
 		});

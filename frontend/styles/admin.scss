@@ -7,7 +7,6 @@
 }
 
 #wrapper {
-	background-color: $light-green-background-color;
 	
 	width: 100%
 }
@@ -18,9 +17,13 @@ nav {
 		li {
 			display: inline-block;
 			padding: 5px;
-			background-color: $green-background-color;
+			background-color: $light-green-background-color;
 			border: 1px solid gray;
-			font-weight: bolder
+
+			&.active {
+				font-weight: bolder;
+				background-color: $green-background-color;
+			}
 		}
 	}
 }

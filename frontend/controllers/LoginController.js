@@ -14,15 +14,12 @@ export default function(app) {
 
 		$scope.login = function() {
 			loginService.login(JSON.stringify({name: $scope.loginData.name, password: $scope.loginData.password})).then(function(res) {
-				console.log(res.data)
-				
 				processLoginResponse(res.data)
 			});
 		};
 
 		function processLoginResponse(data, checkingLogin) {
 			if (data === 'welcome') {
-				console.log(data)
 				$location.path('/table');
 			}	else {
 					if (!checkingLogin) {
