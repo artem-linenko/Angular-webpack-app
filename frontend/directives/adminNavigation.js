@@ -12,7 +12,7 @@ export default function(app) {
 		    	}
 		    },
 		    link: function($scope, element, attrs) {
-		    	$scope.activeTab = 'table';
+		    	$scope.activeTab = $location.path().substr(1);
 
 		    	element.on('click', function($event) {
 		    		if ($event.target.tagName != "LI") return;

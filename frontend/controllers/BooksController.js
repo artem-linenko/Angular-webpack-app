@@ -1,5 +1,6 @@
 angular = require('angular');
 import constants from "./../constants";
+import state from "./../state";
 
 export default function(app) {
 	var booksService = require('../services/booksService.js')(app);
@@ -17,26 +18,31 @@ export default function(app) {
 		};
 
 		// Fetching 1 book or a whole list depending on url params
-		if ($routeParams.id != undefined) {
+		$routeParams.id != undefined ? getSpecificBook() : getBooks();
+
+		function getSpecificBook() {
 			booksService.getBookById($routeParams.id).then(function(data) {
 				$scope.bookToEdit = data.data;
 			});
-		} else {
-			loadBooks();
-		}
+		};
 
-		function loadBooks() {
-			booksService.getBooks().then(function(data) {
-				$scope.books = data.data;
-				$scope.books.forEach((book) => {
-					book.amount = 1;
+		function getBooks(booksWasChanged) {
+			if (!booksWasChanged && state.books.length) {
+				$scope.books = state.books;
+			} else {
+				booksService.getBooks().then(function(data) {
+					$scope.books = data.data;
+					$scope.books.forEach((book) => {
+						book.amount = 1;
+					});
+					state.books = $scope.books;
 				});
-			})
-		}
+			}
+		};
 
 		$scope.addItem = function(book) {
 			$rootScope.$broadcast('itemAddedToCart', book);
-		}
+		};
 
 		$scope.addBook = function() {
 			booksService.postBook($scope.newBook).then(function(data) {
@@ -46,13 +52,13 @@ export default function(app) {
 					author: '',
 					price: ''
 				};
-				loadBooks();
+				getBooks(true);
 			});
 		};
 
 		$scope.updateBook = function(bookToEdit) {
 			booksService.updateBook(bookToEdit).then(function(data) {
-				loadBooks();
+				getBooks(true);
 				$scope.bookToEditVisible = false;
 				$location.path(constants.paths.table)
 			});
@@ -60,7 +66,7 @@ export default function(app) {
 
 		$scope.removeBook = function(bookToRemove) {
 			booksService.removeBook(bookToRemove).then(function(data) {
-				loadBooks();
+				getBooks(true);
 			});
 		};
 

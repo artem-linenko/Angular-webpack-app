@@ -1,3 +1,5 @@
+import state from "./../state";
+
 export default function(app) {
 	var ordersService = require('../services/ordersService.js')(app);
 
@@ -5,15 +7,20 @@ export default function(app) {
 		
 		loadOrders();
 
-		function loadOrders() {
-			ordersService.getOrders().then(function(data) {
-				$scope.orders = data.data;
-			})
+		function loadOrders(ordersWereChanged) {
+			if (!ordersWereChanged && state.orders.length) {
+				$scope.orders = state.orders;
+			} else {
+				ordersService.getOrders().then(function(data) {
+					$scope.orders = data.data;
+					state.orders = $scope.orders;
+				})
+			}
 		};
 
 		$scope.removeOrder = function(orderToRemove) {
 			ordersService.removeOrder(orderToRemove).then(function(data) {
-				loadOrders();
+				loadOrders(true);
 			});
 		};
 	})

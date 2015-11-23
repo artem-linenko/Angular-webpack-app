@@ -1383,6 +1383,8 @@
 	
 	var constants = _interopRequire(__webpack_require__(13));
 	
+	var state = _interopRequire(__webpack_require__(24));
+	
 	module.exports = function (app) {
 		var booksService = __webpack_require__(14)(app);
 	
@@ -1398,22 +1400,27 @@
 			};
 	
 			// Fetching 1 book or a whole list depending on url params
-			if ($routeParams.id != undefined) {
+			$routeParams.id != undefined ? getSpecificBook() : getBooks();
+	
+			function getSpecificBook() {
 				booksService.getBookById($routeParams.id).then(function (data) {
 					$scope.bookToEdit = data.data;
 				});
-			} else {
-				loadBooks();
-			}
+			};
 	
-			function loadBooks() {
-				booksService.getBooks().then(function (data) {
-					$scope.books = data.data;
-					$scope.books.forEach(function (book) {
-						book.amount = 1;
+			function getBooks(booksWasChanged) {
+				if (!booksWasChanged && state.books.length) {
+					$scope.books = state.books;
+				} else {
+					booksService.getBooks().then(function (data) {
+						$scope.books = data.data;
+						$scope.books.forEach(function (book) {
+							book.amount = 1;
+						});
+						state.books = $scope.books;
 					});
-				});
-			}
+				}
+			};
 	
 			$scope.addItem = function (book) {
 				$rootScope.$broadcast("itemAddedToCart", book);
@@ -1427,13 +1434,13 @@
 						author: "",
 						price: ""
 					};
-					loadBooks();
+					getBooks(true);
 				});
 			};
 	
 			$scope.updateBook = function (bookToEdit) {
 				booksService.updateBook(bookToEdit).then(function (data) {
-					loadBooks();
+					getBooks(true);
 					$scope.bookToEditVisible = false;
 					$location.path(constants.paths.table);
 				});
@@ -1441,7 +1448,7 @@
 	
 			$scope.removeBook = function (bookToRemove) {
 				booksService.removeBook(bookToRemove).then(function (data) {
-					loadBooks();
+					getBooks(true);
 				});
 			};
 	
@@ -1707,6 +1714,17 @@
 	// $scope.pointChosenBook = function(name) {
 	// 	$scope.pointBook({'name': name});
 	// }
+
+/***/ },
+/* 24 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	module.exports = {
+		books: [],
+		orders: []
+	};
 
 /***/ }
 /******/ ]);
