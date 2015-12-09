@@ -1,4 +1,3 @@
-angular = require('angular');
 import constants from "./../constants";
 import state from "./../state";
 
@@ -15,6 +14,16 @@ export default function(app) {
 			author: '',
 			price: ''
 		};
+
+		(function checkIfLogined() {
+			if (!$scope.userLogined) {
+				$location.path(constants.paths.login)
+			}
+
+			$scope.$on('userLogined', function() {
+				$scope.userLogined = true;
+			});
+		})();
 
 		// Fetching 1 book or a whole list depending on url params
 		$routeParams.id != undefined ? getSpecificBook() : getBooks();

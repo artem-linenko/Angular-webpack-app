@@ -17,6 +17,10 @@ export default function(app) {
 				}, function(path){
 					$scope.activeTab = path.substr(1);
 				});
+
+				$scope.$on('userLogined', function() {
+					$scope.userLogined = true;
+				});
 		    },
 		    link: function($scope, element, attrs) {
 

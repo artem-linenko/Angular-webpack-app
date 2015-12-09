@@ -1,5 +1,5 @@
 <!-- template of adminNavigion directive -->
-<nav>
+<nav ng-show="userLogined">
 	<ul>
 		<li name='table' ng-class="{active: activeTab == 'table'} ">Table</li>
 		<li name='orders' ng-class="{active: activeTab == 'orders'}">Orders</li>

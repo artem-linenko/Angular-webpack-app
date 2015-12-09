@@ -1455,6 +1455,7 @@
 			function processLoginResponse(data, checkingLogin) {
 				if (data === "welcome") {
 					$location.path("/table");
+					$rootScope.$broadcast("userLogined");
 				} else {
 					if (!checkingLogin) {
 						$scope.loginData.loginFailed = true;
@@ -1478,6 +1479,7 @@
 			return {
 				checkIfLogined: function checkIfLogined() {
 					return $http.get(baseUrl).success(function (data) {
+						console.log(data);
 						return data;
 					}).error(function (err) {
 						return err;
@@ -1502,8 +1504,6 @@
 	
 	var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
 	
-	angular = __webpack_require__(5);
-	
 	var constants = _interopRequire(__webpack_require__(12));
 	
 	var state = _interopRequire(__webpack_require__(13));
@@ -1521,6 +1521,16 @@
 				author: "",
 				price: ""
 			};
+	
+			(function checkIfLogined() {
+				if (!$scope.userLogined) {
+					$location.path(constants.paths.login);
+				}
+	
+				$scope.$on("userLogined", function () {
+					$scope.userLogined = true;
+				});
+			})();
 	
 			// Fetching 1 book or a whole list depending on url params
 			$routeParams.id != undefined ? getSpecificBook() : getBooks();
@@ -1599,6 +1609,7 @@
 	
 	module.exports = {
 		paths: {
+			login: "/login",
 			orders: "/orders",
 			table: "/table"
 		}
@@ -1692,12 +1703,24 @@
 	
 	var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
 	
+	var constants = _interopRequire(__webpack_require__(12));
+	
 	var state = _interopRequire(__webpack_require__(13));
 	
 	module.exports = function (app) {
 		var ordersService = __webpack_require__(16)(app);
 	
 		return app.controller("OrdersController", function ($scope, ordersService) {
+	
+			(function checkIfLogined() {
+				if (!$scope.userLogined) {
+					$location.path(constants.paths.login);
+				}
+	
+				$scope.$on("userLogined", function () {
+					$scope.userLogined = true;
+				});
+			})();
 	
 			loadOrders();
 	
@@ -1778,6 +1801,10 @@
 						return $location.path();
 					}, function (path) {
 						$scope.activeTab = path.substr(1);
+					});
+	
+					$scope.$on("userLogined", function () {
+						$scope.userLogined = true;
 					});
 				},
 				link: function link($scope, element, attrs) {

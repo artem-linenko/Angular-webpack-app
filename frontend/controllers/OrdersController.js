@@ -1,10 +1,21 @@
+import constants from "./../constants";
 import state from "./../state";
 
 export default function(app) {
 	var ordersService = require('../services/ordersService.js')(app);
 
 	return app.controller('OrdersController', function($scope, ordersService){
-		
+
+		(function checkIfLogined() {
+			if (!$scope.userLogined) {
+				$location.path(constants.paths.login)
+			}
+
+			$scope.$on('userLogined', function() {
+				$scope.userLogined = true;
+			});
+		})();
+
 		loadOrders();
 
 		function loadOrders(ordersWereChanged) {

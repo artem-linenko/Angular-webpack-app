@@ -21,6 +21,7 @@ export default function(app) {
 		function processLoginResponse(data, checkingLogin) {
 			if (data === 'welcome') {
 				$location.path('/table');
+				$rootScope.$broadcast('userLogined')
 			}	else {
 					if (!checkingLogin) {
 						$scope.loginData.loginFailed = true;
