@@ -1511,24 +1511,21 @@
 				getBooks: function getBooks() {
 					return $http.get(baseUrl + collections.books, config).success(function (data) {
 						return data;
-					});
-					error(function (err) {
+					}).error(function (err) {
 						return err;
 					});
 				},
 				getBookById: function getBookById(id) {
 					return $http.get(baseUrl + collections.books + "/" + id, config).success(function (data) {
 						return data;
-					});
-					error(function (err) {
+					}).error(function (err) {
 						return err;
 					});
 				},
 				postBook: function postBook(newBook) {
 					return $http.post(baseUrl + collections.books, newBook, config).success(function (data) {
 						return data;
-					});
-					error(function (err) {
+					}).error(function (err) {
 						return err;
 					});
 				},
@@ -1537,8 +1534,7 @@
 	
 					return $http.put(baseUrl + collections.books + "/" + id, bookToEdit, config).success(function (data) {
 						return data;
-					});
-					error(function (err) {
+					}).error(function (err) {
 						return err;
 					});
 				},
@@ -1547,8 +1543,7 @@
 	
 					return $http["delete"](baseUrl + collections.books + "/" + id, config).success(function (data) {
 						return data;
-					});
-					error(function (err) {
+					}).error(function (err) {
 						return err;
 					});
 				},
@@ -1557,8 +1552,7 @@
 				makeOrder: function makeOrder(books) {
 					return $http.post(baseUrl + collections.unprocessedOrders, books, config).success(function (data) {
 						return data;
-					});
-					error(function (err) {
+					}).error(function (err) {
 						return err;
 					});
 				}

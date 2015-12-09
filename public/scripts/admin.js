@@ -1479,8 +1479,7 @@
 				checkIfLogined: function checkIfLogined() {
 					return $http.get(baseUrl).success(function (data) {
 						return data;
-					});
-					error(function (err) {
+					}).error(function (err) {
 						return err;
 					});
 				},
@@ -1636,24 +1635,21 @@
 				getBooks: function getBooks() {
 					return $http.get(baseUrl + collections.books, config).success(function (data) {
 						return data;
-					});
-					error(function (err) {
+					}).error(function (err) {
 						return err;
 					});
 				},
 				getBookById: function getBookById(id) {
 					return $http.get(baseUrl + collections.books + "/" + id, config).success(function (data) {
 						return data;
-					});
-					error(function (err) {
+					}).error(function (err) {
 						return err;
 					});
 				},
 				postBook: function postBook(newBook) {
 					return $http.post(baseUrl + collections.books, newBook, config).success(function (data) {
 						return data;
-					});
-					error(function (err) {
+					}).error(function (err) {
 						return err;
 					});
 				},
@@ -1662,8 +1658,7 @@
 	
 					return $http.put(baseUrl + collections.books + "/" + id, bookToEdit, config).success(function (data) {
 						return data;
-					});
-					error(function (err) {
+					}).error(function (err) {
 						return err;
 					});
 				},
@@ -1672,8 +1667,7 @@
 	
 					return $http["delete"](baseUrl + collections.books + "/" + id, config).success(function (data) {
 						return data;
-					});
-					error(function (err) {
+					}).error(function (err) {
 						return err;
 					});
 				},
@@ -1682,8 +1676,7 @@
 				makeOrder: function makeOrder(books) {
 					return $http.post(baseUrl + collections.unprocessedOrders, books, config).success(function (data) {
 						return data;
-					});
-					error(function (err) {
+					}).error(function (err) {
 						return err;
 					});
 				}
@@ -1743,8 +1736,7 @@
 				getOrders: function getOrders() {
 					return $http.get(baseUrl, config).success(function (data) {
 						return data;
-					});
-					error(function (err) {
+					}).error(function (err) {
 						return err;
 					});
 				},
@@ -1753,8 +1745,7 @@
 	
 					return $http["delete"](baseUrl + "/" + id, config).success(function (data) {
 						return data;
-					});
-					error(function (err) {
+					}).error(function (err) {
 						return err;
 					});
 				} };
@@ -1777,13 +1768,19 @@
 				restrict: "E",
 				templateUrl: "./partials/admin-navigation.html",
 				controller: function controller($scope, $location, $rootScope) {
+					$scope.activeTab = $location.path().substr(1);
 					$scope.changePath = function (newPath) {
 						$location.path(newPath);
 						$rootScope.$apply();
 					};
+	
+					$scope.$watch(function () {
+						return $location.path();
+					}, function (path) {
+						$scope.activeTab = path.substr(1);
+					});
 				},
 				link: function link($scope, element, attrs) {
-					$scope.activeTab = $location.path().substr(1);
 	
 					element.on("click", function ($event) {
 						if ($event.target.tagName != "LI") return;
