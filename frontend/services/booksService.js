@@ -15,7 +15,7 @@ export default function(app) {
 				  .success(function(data) {
 				  	return data;
 				  })
-				  error(function(err) {
+				  .error(function(err) {
 				  	return err;
 				  })
 			},
@@ -24,7 +24,7 @@ export default function(app) {
 				  .success(function(data) {
 				  	return data;
 				  })
-				  error(function(err) {
+				  .error(function(err) {
 				  	return err;
 				  })
 			},
@@ -33,7 +33,7 @@ export default function(app) {
 				  .success(function(data) {
 				  	return data;
 				  })
-				  error(function(err) {
+				  .error(function(err) {
 				  	return err;
 				  })
 			},
@@ -44,7 +44,7 @@ export default function(app) {
 				  .success(function(data) {
 				  	return data;
 				  })
-				  error(function(err) {
+				  .error(function(err) {
 				  	return err;
 				  })
 			},
@@ -55,7 +55,7 @@ export default function(app) {
 				  .success(function(data) {
 				  	return data;
 				  })
-				  error(function(err) {
+				  .error(function(err) {
 				  	return err;
 				  })
 			},
@@ -66,7 +66,7 @@ export default function(app) {
 				  .success(function(data) {
 				  	return data;
 				  })
-				  error(function(err) {
+				  .error(function(err) {
 				  	return err;
 				  })
 			}

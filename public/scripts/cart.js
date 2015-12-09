@@ -55,12 +55,12 @@
 	var cartApp = angular.module("userApp", ["ngRoute"]);
 	
 	// Controllers
-	__webpack_require__(12)(cartApp);
-	__webpack_require__(21)(cartApp);
+	__webpack_require__(11)(cartApp);
+	__webpack_require__(20)(cartApp);
 	
 	// Directives
+	__webpack_require__(21)(cartApp);
 	__webpack_require__(22)(cartApp);
-	__webpack_require__(23)(cartApp);
 
 /***/ },
 /* 1 */,
@@ -1371,8 +1371,7 @@
 /***/ },
 /* 9 */,
 /* 10 */,
-/* 11 */,
-/* 12 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1381,9 +1380,9 @@
 	
 	angular = __webpack_require__(5);
 	
-	var constants = _interopRequire(__webpack_require__(13));
+	var constants = _interopRequire(__webpack_require__(12));
 	
-	var state = _interopRequire(__webpack_require__(24));
+	var state = _interopRequire(__webpack_require__(13));
 	
 	module.exports = function (app) {
 		var booksService = __webpack_require__(14)(app);
@@ -1408,8 +1407,10 @@
 				});
 			};
 	
-			function getBooks(booksWasChanged) {
-				if (!booksWasChanged && state.books.length) {
+			// Need to use booksWereChanged parameter to get books from server again
+			// This is needed in order to get Mongo id to remove or update the record
+			function getBooks(booksWereChanged) {
+				if (!booksWereChanged && state.books.length) {
 					$scope.books = state.books;
 				} else {
 					booksService.getBooks().then(function (data) {
@@ -1467,7 +1468,7 @@
 	};
 
 /***/ },
-/* 13 */
+/* 12 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1477,6 +1478,17 @@
 			orders: "/orders",
 			table: "/table"
 		}
+	};
+
+/***/ },
+/* 13 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	module.exports = {
+		books: [],
+		orders: []
 	};
 
 /***/ },
@@ -1598,8 +1610,7 @@
 
 
 /***/ },
-/* 20 */,
-/* 21 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1665,7 +1676,7 @@
 	};
 
 /***/ },
-/* 22 */
+/* 21 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1684,7 +1695,7 @@
 	};
 
 /***/ },
-/* 23 */
+/* 22 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1714,17 +1725,6 @@
 	// $scope.pointChosenBook = function(name) {
 	// 	$scope.pointBook({'name': name});
 	// }
-
-/***/ },
-/* 24 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	module.exports = {
-		books: [],
-		orders: []
-	};
 
 /***/ }
 /******/ ]);

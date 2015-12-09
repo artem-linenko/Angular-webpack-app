@@ -10,7 +10,6 @@ export default function(app) {
 		$scope.addFormVisible = false;
 		$scope.bookToEditVisible = false;
 
-
 		$scope.newBook = {
 			name: '',
 			author: '',
@@ -25,9 +24,11 @@ export default function(app) {
 				$scope.bookToEdit = data.data;
 			});
 		};
-
-		function getBooks(booksWasChanged) {
-			if (!booksWasChanged && state.books.length) {
+		
+		// Need to use booksWereChanged parameter to get books from server again
+		// This is needed in order to get Mongo id to remove or update the record
+		function getBooks(booksWereChanged) {
+			if (!booksWereChanged && state.books.length) {
 				$scope.books = state.books;
 			} else {
 				booksService.getBooks().then(function(data) {
